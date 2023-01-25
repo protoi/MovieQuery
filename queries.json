@@ -1,4 +1,6 @@
 {
-    "person": "Matt Damon",
-    "movie": "Spirited Away"
+    "actors": ["Morgan  Freeman", "Tom   Hanks", "dfhsdkfjdsfhkjdj"],
+    "genre": ["Documentary"]
 }
+
+
