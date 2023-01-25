@@ -47,7 +47,7 @@ async function make_requests(search_terms) {
         }
     }
 
-    console.table(movie_names);
+    console.log(movie_names);
     // return movie_names;
 }
 make_requests(queries);
