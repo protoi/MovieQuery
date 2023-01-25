@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "axiom": "^0.1.6",
+    "axios": "^1.2.4",
+    "dotenv": "^16.0.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "moviequery",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {
+    "coffee-script": "^1.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protoi/MovieQuery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/protoi/MovieQuery/issues"
+  },
+  "homepage": "https://github.com/protoi/MovieQuery#readme",
+  "description": ""
+}
