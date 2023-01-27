@@ -1,8 +1,17 @@
 {
   "dependencies": {
+    "@nlpjs/basic": "^4.26.1",
+    "@nlpjs/directline-connector": "^4.26.1",
+    "@nlpjs/express-api-server": "^4.26.1",
     "axiom": "^0.1.6",
     "axios": "^1.2.4",
-    "dotenv": "^16.0.3"
+    "compromise": "^14.8.1",
+    "compromise-speech": "^0.1.0",
+    "dotenv": "^16.0.3",
+    "lerna": "^6.4.1",
+    "node-nlp": "^4.26.1",
+    "wink-eng-lite-web-model": "^1.4.3",
+    "wink-nlp": "^1.13.0"
   },
   "scripts": {
     "start": "node server.js"

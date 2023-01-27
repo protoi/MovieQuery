@@ -1,6 +1,9 @@
 {
-    "actors": ["Tom Hanks", "Nicolas Cage"],
-    "genre": []
+    "actors": [
+        "Brad Pitt",
+        "George Clooney"
+    ],
+    "genre": [
+        "Thriller"
+    ]
 }
-
-
