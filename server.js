@@ -5,6 +5,7 @@ const exp = express();
 const port = 9999;
 const imdb = require("./imdb_lookup");
 const context_extractor = require("./name_and_genre_splitter");
+const PORT = 9999
 
 require("dotenv").config();
 
