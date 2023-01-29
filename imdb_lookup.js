@@ -5,8 +5,8 @@ require("dotenv").config();
 
 class send_imdb_query {
   constructor() {
-    this.actor_mapping = [];
-    this.genre_mapping = [];
+    this.actor_mapping = {};
+    this.genre_mapping = {};
 
     // this.map_genre_with_ID();
   }
@@ -101,10 +101,19 @@ class send_imdb_query {
     }
 
     // extract IDs of given genre out of mapped genre
-    search_terms["genre"].forEach((genre) => {
-      if (this.genre_mapping[genre] != null)
-        genre_IDs.push(this.genre_mapping[genre]);
-    });
+    // search_terms["genre"].forEach((genre) => {
+    //   console.log(`genre ----> ${genre}`);
+    //   if (this.genre_mapping[genre] != null)
+    //     genre_IDs.push(this.genre_mapping[genre]);
+    // });
+
+    for (let index = 0; index < search_terms["genre"].length; index++) {
+      const element = search_terms["genre"][index];
+      console.log(`genre ----> ${element}`);
+
+      if (this.genre_mapping[element] != null)
+        genre_IDs.push(this.genre_mapping[element]);
+    }
 
     // turning the IDs into strings
     genre_id_string = genre_IDs.join(",");
@@ -113,6 +122,7 @@ class send_imdb_query {
     console.log(`actor_IDs: ${actor_IDs}`);
     console.log(`genre_id_string: ${genre_id_string}`);
     console.log(`actor_id_string: ${actor_id_string}`);
+    console.log(`genre mapping ${this.genre_mapping}`, {depth : null});
 
     // send GET request to discover
     try {

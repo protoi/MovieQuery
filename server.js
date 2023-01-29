@@ -67,7 +67,6 @@ exp.post("/movie", async (req, res) => {
     num = num_message_tuple.num;
     msg = num_message_tuple.msg;
 
-    res.sendStatus(200);
     console.log("sent status");
 
     try {
@@ -86,10 +85,7 @@ exp.post("/movie", async (req, res) => {
         const movie_list = await imdb_obj.find_queries(split_names);
         console.log("queries found");
 
-        if (
-          movie_list["original_title"] == null ||
-          movie_list["original_title"].length == 0
-        ) {
+        if (movie_list == null || movie_list.length == 0) {
           const config = generate_payload(num, movie_list["original title"]);
           console.log("payload generated");
           axios(config)
@@ -101,11 +97,13 @@ exp.post("/movie", async (req, res) => {
             });
         }
       } catch (err) {
-        res.sendStatus(403);
+        // res.sendStatus(403);
+        console.log(err.message);
         console.log("Payload was broken");
       }
     } catch (err) {
       // send "something wrong happened message" to whatsapp
+      console.log(err.message);
       console.log("Number or message were broken");
     }
   } else {
@@ -113,6 +111,7 @@ exp.post("/movie", async (req, res) => {
       "oh no, something went wrong extracting the number and message"
     );
   }
+  res.sendStatus(200);
 });
 
 exp.listen(PORT, () => {
