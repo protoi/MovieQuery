@@ -61,14 +61,13 @@ class send_imdb_query {
   }
 
   async find_queries(search_terms) {
-    this.map_genre_with_ID()
-      .then((response) => {
-        console.log("genre mapping successful");
-      })
-      .catch((err) => {
-        console.log("genre mapping FAILED");
-      });
-    let movie_names = {};
+    try {
+      await this.map_genre_with_ID();
+    } catch (err) {
+      console.log("error mapping genres");
+    }
+
+    let movie_names = [];
     let err_flag = false;
     let actor_id_string = "";
     let genre_id_string = "";
@@ -111,12 +110,11 @@ class send_imdb_query {
     genre_id_string = genre_IDs.join(",");
     actor_id_string = actor_IDs.join(",");
 
-    console.log(actor_IDs);
-    console.log(genre_id_string);
-    console.log(actor_id_string);
+    console.log(`actor_IDs: ${actor_IDs}`);
+    console.log(`genre_id_string: ${genre_id_string}`);
+    console.log(`actor_id_string: ${actor_id_string}`);
 
     // send GET request to discover
-
     try {
       console.log("test");
 
@@ -130,7 +128,7 @@ class send_imdb_query {
 
       for (let index = 0; index < imdb_data.length; index++) {
         const element = imdb_data[index];
-        movie_names[index + 1] = {
+        movie_names[index] = {
           id: element["id"],
           "original title": element["original_title"],
           overview: element["overview"].substring(0, 50),
@@ -141,7 +139,10 @@ class send_imdb_query {
       movie_names = "...";
     }
     // console.table(movie_names);
-
+    const names = movie_names.map((e) => {
+      return e["original title"];
+    });
+    console.log(`movie titles -----> ${names}`);
     return movie_names;
 
     /* 
