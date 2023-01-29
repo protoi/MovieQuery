@@ -1,26 +1,25 @@
-const imdb = require('./imdb_lookup');
-const name_splitter = require('./name_and_genre_splitter')
+const imdb = require("./imdb_lookup");
+const context_extractor = require("./name_and_genre_splitter");
 
-// const b = require('./queries.json');
+async function wrapper() {
+  const split_obj = new context_extractor.name_splitter();
+  const imdb_obj = await new imdb.send_imdb_query();
 
-
-
-async function runner() {
+  async function runner() {
     try {
-        const imdb_obj = await new imdb.send_imdb_query();
-
-        const split_obj = await new name_splitter.name_splitter("find all action movies with Arnold Schwarzenegger and Sylvester Stallone");
-        
-        const split_names = await split_obj.extract_context();
-
-        console.table(await imdb_obj.find_queries(split_names));
+      split_obj.set_message(
+        "find all action movies with Arnold Schwarzenegger and Sylvester Stallone"
+      );
+      const split_names = await split_obj.extract_context();
+      console.table(await imdb_obj.find_queries(split_names));
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-        console.log(err);
-    }
+  }
+  runner();
 }
 
-runner();
+wrapper();
 /* 
 console.log("++++++++++++++++++++++++++++++++++++++++++")
 console.table(imdb_obj.find_queries(b));

@@ -1,20 +1,25 @@
 
 class name_splitter {
 
-    constructor(message) {
-        const nlp = require('compromise')
+    constructor() {
+        this.nlp = require('compromise')
 
-        const plg = require('compromise-speech');
-        this.message = message.replace(",", " 1 ");
+        this.plg = require('compromise-speech');
+        this.message = "";
 
-        nlp.extend(plg);
-        this.json = nlp(message).json();
+        this.nlp.extend(this.plg);
+        this.json = null;
 
         this.genres = ["action", "comedy", "romance", "drama", "horror"];
         this.found_genres = [];
         this.name_list = [];
         this.buffer = [];
         this.identifiers = ["Person", "ProperNoun"];
+    }
+
+    set_message(raw_message){
+        this.message = raw_message.replace(",", " 1 ");
+        this.json = this.nlp(this.message).json();
     }
 
 
