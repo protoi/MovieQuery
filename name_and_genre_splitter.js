@@ -2,6 +2,7 @@
 class name_splitter {
 
     constructor() {
+        console.log("entered name splitter");
         this.nlp = require('compromise')
 
         this.plg = require('compromise-speech');
@@ -15,10 +16,12 @@ class name_splitter {
         this.name_list = [];
         this.buffer = [];
         this.identifiers = ["Person", "ProperNoun"];
+        console.log("finished name splitter");
     }
 
     set_message(raw_message){
-        this.message = raw_message.replace(",", " 1 ");
+        this.message = raw_message.replaceAll(",", " 1 ");
+        console.log(this.message);
         this.json = this.nlp(this.message).json();
     }
 

@@ -8,7 +8,7 @@ class send_imdb_query {
     this.actor_mapping = [];
     this.genre_mapping = [];
 
-    this.map_genre_with_ID();
+    // this.map_genre_with_ID();
   }
 
   async map_genre_with_ID() {
@@ -61,6 +61,13 @@ class send_imdb_query {
   }
 
   async find_queries(search_terms) {
+    this.map_genre_with_ID()
+      .then((response) => {
+        console.log("genre mapping successful");
+      })
+      .catch((err) => {
+        console.log("genre mapping FAILED");
+      });
     let movie_names = {};
     let err_flag = false;
     let actor_id_string = "";
@@ -82,7 +89,7 @@ class send_imdb_query {
       const name = actor_names[index];
       try {
         normalized_name = modify_string(name);
-        console.log(`${normalized_name} <-------------`);
+        // console.log(`${normalized_name} <-------------`);
         let actor_mapping_output = await this.map_actor_with_ID(
           normalized_name
         );
@@ -158,6 +165,7 @@ class send_imdb_query {
     // return movie_names;
   }
 }
+module.exports = { send_imdb_query };
 
 // // mapping with IDs
 // let actor_mapping = {};
@@ -330,5 +338,3 @@ class send_imdb_query {
 // /* https://api.themoviedb.org/3/search/movie?api_key=8c043f8ad54e1796695922f5011748a9&language=en-US&page=1&include_adult=false&query=Jurassic+Park
 // https://api.themoviedb.org/3/search/person?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
 // */
-
-module.exports = { send_imdb_query };

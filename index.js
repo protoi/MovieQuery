@@ -8,7 +8,7 @@ async function wrapper() {
   async function runner() {
     try {
       split_obj.set_message(
-        "find all action movies with Arnold Schwarzenegger and Sylvester Stallone"
+        "thriller, action movies with Arnold Schwarzenegger, Brad Pitt and George Clooney"
       );
       const split_names = await split_obj.extract_context();
       console.table(await imdb_obj.find_queries(split_names));

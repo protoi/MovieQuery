@@ -5,7 +5,7 @@ const exp = express();
 const port = 9999;
 const imdb = require("./imdb_lookup");
 const context_extractor = require("./name_and_genre_splitter");
-const PORT = 9999
+const PORT = 9999;
 
 require("dotenv").config();
 
@@ -27,6 +27,7 @@ function extract_number_and_message(payload) {
     const number = payload.entry[0].changes[0].value["messages"][0]["from"];
     const message =
       payload.entry[0].changes[0].value["messages"][0]["text"]["body"];
+    console.log(`number: ${number}, message: ${message}`);
     return {
       num: number,
       msg: message,
@@ -53,33 +54,44 @@ function generate_payload(number, movie_list) {
     },
     data: reply_body,
   };
+  console.log("payload generated");
   return config;
 }
 
 exp.post("/movie", async (req, res) => {
   let num, msg;
   const num_message_tuple = extract_number_and_message(req.body);
+  console.log("extract_number_and_message EXITED");
 
   if (num_message_tuple != null) {
     num = num_message_tuple.num;
     msg = num_message_tuple.msg;
 
     res.sendStatus(200);
+    console.log("sent status");
 
     try {
       const split_obj = new context_extractor.name_splitter();
+      console.log("name splitter EXITED");
       const imdb_obj = await new imdb.send_imdb_query();
+      console.log("imdb query EXITED");
 
       split_obj.set_message(msg);
+      console.log("message set");
+
       try {
         const split_names = await split_obj.extract_context();
+        console.log("context extracted");
+
         const movie_list = await imdb_obj.find_queries(split_names);
+        console.log("queries found");
 
         if (
           movie_list["original_title"] == null ||
           movie_list["original_title"].length == 0
         ) {
           const config = generate_payload(num, movie_list["original title"]);
+          console.log("payload generated");
           axios(config)
             .then((response) => {
               console.log("Message sent successfully");
@@ -96,6 +108,10 @@ exp.post("/movie", async (req, res) => {
       // send "something wrong happened message" to whatsapp
       console.log("Number or message were broken");
     }
+  } else {
+    console.log(
+      "oh no, something went wrong extracting the number and message"
+    );
   }
 });
 
