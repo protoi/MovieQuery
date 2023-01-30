@@ -43,7 +43,7 @@ function generate_payload(number, movie_list) {
     to: number,
     type: "text",
     text: {
-      body: movie_names.map((e) => {
+      body: movie_list.map((e) => {
         return e["original title"];
       }).join(", ")
     },
