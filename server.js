@@ -84,8 +84,9 @@ exp.post("/movie", async (req, res) => {
 
         const movie_list = await imdb_obj.find_queries(split_names);
         console.log("queries found");
+        // console.log(movie_list);
 
-        if (movie_list == null || movie_list.length == 0) {
+        if (movie_list != null || movie_list.length != 0) {
           const config = generate_payload(num, movie_list["original title"]);
           console.log("payload generated");
           axios(config)
