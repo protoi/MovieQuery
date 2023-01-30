@@ -22,7 +22,7 @@ class send_imdb_query {
       const genre_ID_response = await axios(config);
 
       genre_ID_response.data["genres"].forEach((element) => {
-        this.genre_mapping[element["name"]] = element["id"];
+        this.genre_mapping[element["name"].toLowerCase()] = element["id"];
       });
       console.log(this.genre_mapping);
       return true;
@@ -111,6 +111,8 @@ class send_imdb_query {
       const element = search_terms["genre"][index];
       console.log(`genre ----> ${element}`);
 
+      console.log(`genre ID -----> ${this.genre_mapping[element]}`);
+      console.log(this.genre_mapping);
       if (this.genre_mapping[element] != null)
         genre_IDs.push(this.genre_mapping[element]);
     }

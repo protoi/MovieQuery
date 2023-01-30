@@ -11,7 +11,11 @@ class name_splitter {
         this.nlp.extend(this.plg);
         this.json = null;
 
-        this.genres = ["action", "comedy", "romance", "drama", "horror"];
+        this.genres = ["action", "adventure", "animation", "comedy", "crime", "documentary", "drama", "family", "fantasy", "history", "horror", "music", "mystery", "romance", "science fiction", "tv movie", "thriller", "war", "western"];
+
+
+
+
         this.found_genres = [];
         this.name_list = [];
         this.buffer = [];
@@ -19,7 +23,7 @@ class name_splitter {
         console.log("finished name splitter");
     }
 
-    set_message(raw_message){
+    set_message(raw_message) {
         this.message = raw_message.replaceAll(",", " 1 ");
         console.log(this.message);
         this.json = this.nlp(this.message).json();
@@ -36,10 +40,10 @@ class name_splitter {
             // console.log(element);
             if (this.genres.includes(element["text"].toLowerCase())) {
                 this.found_genres.push(element["text"].toLowerCase());
-                return;
+                // return;
             }
             // console.log(element["text"] + " <-----> " + element["tags"]);
-            
+
             if (this.identifiers.some((POS) => element["tags"].includes(POS)))
                 this.buffer.push(element["text"]);
             else {
@@ -57,12 +61,12 @@ class name_splitter {
             // console.log(this.name_list);
         }
 
-/* 
-        console.log("hello world");
-        console.log(`original message ->${this.message}`)
-        console.log(this.name_list);
-        console.log(this.found_genres);
- */
+        /* 
+                console.log("hello world");
+                console.log(`original message ->${this.message}`)
+                console.log(this.name_list);
+                console.log(this.found_genres);
+         */
         const query_object = {
             "actors": this.name_list,
             "genre": this.found_genres
