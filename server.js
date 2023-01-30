@@ -42,7 +42,11 @@ function generate_payload(number, movie_list) {
     messaging_product: "whatsapp",
     to: number,
     type: "text",
-    text: { body: movie_list.join(", ") },
+    text: {
+      body: movie_names.map((e) => {
+        return e["original title"];
+      }).join(", ")
+    },
   });
 
   const config = {
