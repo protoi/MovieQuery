@@ -91,7 +91,7 @@ exp.post("/movie", async (req, res) => {
         // console.log(movie_list);
 
         if (movie_list != null || movie_list.length != 0) {
-          const config = generate_payload(num, movie_list["original title"]);
+          const config = generate_payload(num, movie_list);
           console.log("payload generated");
           axios(config)
             .then((response) => {
