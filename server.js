@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("express").Router();
+// const router = require("express").Router();
 const axios = require("axios");
 const exp = express();
 const port = 9999;
@@ -7,7 +7,7 @@ const imdb = require("./imdb_lookup");
 // const context_extractor = require("./name_and_genre_splitter");
 const PORT = 9999;
 const nlp_model = require("./model_loader");
-const model = new nlp_model.natural_language_processing_model();
+let model = null;
 
 require("dotenv").config();
 
@@ -130,4 +130,7 @@ exp.post("/movie", async (req, res) => {
 
 exp.listen(PORT, () => {
   console.log(`express app listening to port #${PORT}`);
+  model = new nlp_model.natural_language_processing_model();
+  console.log("hello world");
+  
 });

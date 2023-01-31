@@ -7,7 +7,7 @@ class natural_language_processing_model {
     this.model_loader();
   }
   model_loader() {
-    const data = fs.readFileSync("mymodel.nlp", "utf8");
+    const data = fs.readFileSync("./mymodel.nlp", "utf8");
     this.manager.import(data);
   }
 
