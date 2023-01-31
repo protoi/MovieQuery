@@ -93,6 +93,8 @@ exp.post("/movie", async (req, res) => {
         // const split_names = await split_obj.extract_context();
         console.log("context extracted");
 
+        console.table(entities);
+
         // const movie_list = await imdb_obj.find_queries(split_names);
         const movie_list = await imdb_obj.find_queries(entities);
 
