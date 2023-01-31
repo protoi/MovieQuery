@@ -4,8 +4,10 @@ const axios = require("axios");
 const exp = express();
 const port = 9999;
 const imdb = require("./imdb_lookup");
-const context_extractor = require("./name_and_genre_splitter");
+// const context_extractor = require("./name_and_genre_splitter");
 const PORT = 9999;
+const nlp_model = require("./model_loader");
+const model = new nlp_model.natural_language_processing_model();
 
 require("dotenv").config();
 
@@ -43,9 +45,11 @@ function generate_payload(number, movie_list) {
     to: number,
     type: "text",
     text: {
-      body: movie_list.map((e) => {
-        return e["original title"];
-      }).join(", ")
+      body: movie_list
+        .map((e) => {
+          return e["original title"];
+        })
+        .join(", "),
     },
   });
 
@@ -74,19 +78,24 @@ exp.post("/movie", async (req, res) => {
     console.log("sent status");
 
     try {
-      const split_obj = new context_extractor.name_splitter();
+      // const split_obj = new context_extractor.name_splitter();
       console.log("name splitter EXITED");
       const imdb_obj = await new imdb.send_imdb_query();
       console.log("imdb query EXITED");
 
-      split_obj.set_message(msg);
+      // split_obj.set_message(msg);
+
       console.log("message set");
 
       try {
-        const split_names = await split_obj.extract_context();
+        const entities = await model.extract_entities(msg);
+
+        // const split_names = await split_obj.extract_context();
         console.log("context extracted");
 
-        const movie_list = await imdb_obj.find_queries(split_names);
+        // const movie_list = await imdb_obj.find_queries(split_names);
+        const movie_list = await imdb_obj.find_queries(entities);
+
         console.log("queries found");
         // console.log(movie_list);
 

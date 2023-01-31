@@ -81,7 +81,7 @@ class send_imdb_query {
 
     // map actor names with their IDs
 
-    let actor_names = search_terms["actors"];
+    let actor_names = search_terms["actor"];
     let normalized_name = "";
 
     for (let index = 0; index < actor_names.length; index++) {

@@ -68,7 +68,7 @@ class name_splitter {
                 console.log(this.found_genres);
          */
         const query_object = {
-            "actors": this.name_list,
+            "actor": this.name_list,
             "genre": this.found_genres
         }
         console.table(query_object)

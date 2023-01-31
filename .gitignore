@@ -1,3 +1,6 @@
 .env
 node_modules/
 notepad.txt
+wink_testing.js
+node_nlp_testing.js
+nlp_js_testing/
