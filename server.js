@@ -7,7 +7,10 @@ const imdb = require("./imdb_lookup");
 // const context_extractor = require("./name_and_genre_splitter");
 const PORT = 9999;
 const nlp_model = require("./model_loader");
-const model = new nlp_model.natural_language_processing_model();
+
+let flag = false;
+
+let model;
 
 require("dotenv").config();
 
@@ -67,6 +70,10 @@ function generate_payload(number, movie_list) {
 }
 
 exp.post("/movie", async (req, res) => {
+  if (!flag) {
+    model = new nlp_model.natural_language_processing_model();
+    flag = true;
+  }
   let num, msg;
   const num_message_tuple = extract_number_and_message(req.body);
   console.log("extract_number_and_message EXITED");
