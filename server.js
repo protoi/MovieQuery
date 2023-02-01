@@ -72,6 +72,7 @@ function generate_payload(number, movie_list) {
 exp.post("/movie", async (req, res) => {
   if (!flag) {
     model = new nlp_model.natural_language_processing_model();
+    model.load_model();
     flag = true;
   }
   let num, msg;

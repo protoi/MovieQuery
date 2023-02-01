@@ -4,9 +4,9 @@ const { NlpManager } = require("node-nlp");
 class natural_language_processing_model {
   constructor() {
     this.manager = new NlpManager();
-    this.model_loader();
+    // this.load_model();
   }
-  model_loader() {
+  load_model() {
     const data = fs.readFileSync("./mymodel.nlp", "utf8");
     this.manager.import(data);
   }
