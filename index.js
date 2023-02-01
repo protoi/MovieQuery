@@ -4,6 +4,8 @@ const context_extractor = require("./name_and_genre_splitter");
 const nlp_model = require("./model_loader");
 const model = new nlp_model.natural_language_processing_model();
 
+model.load_model();
+
 async function wrapper() {
   const split_obj = new context_extractor.name_splitter();
   const imdb_obj = await new imdb.send_imdb_query();
